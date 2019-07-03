@@ -1,3 +1,2 @@
 export * from './constants';
-export * from './container-types/repositories';
-export * from './container-types/services';
+export * from './container-types';

@@ -1,16 +1,16 @@
 import { injectable } from "inversify";
-import { IUserRepository } from "../interfaces/IRepositories";
+import { IUserRepository } from "../IRepositories";
 import { IUser, userModel } from "../entities";
 
 @injectable()
 export class UserRepository implements IUserRepository {
   findOne = async (query: any): Promise<IUser> => {
-    const user = await userModel.findOne(query);
+    const user = await userModel.findOne(query).select('-__v');
     return user as IUser;
   };
 
   findAll = async (): Promise<IUser[]> => {
-    return await userModel.find({});
+    return await userModel.find({}).select('-password -__v');
   };
 
   create = async (user: IUser): Promise<IUser> => {
@@ -19,7 +19,7 @@ export class UserRepository implements IUserRepository {
 
   update = async (user: IUser): Promise<IUser> => {
     await userModel.findByIdAndUpdate(user.id, user);
-    const updated = await userModel.findById(user.id);
+    const updated = await userModel.findById(user.id).select('-password -__v');
     
     return updated as IUser;
   };

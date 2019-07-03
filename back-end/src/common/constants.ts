@@ -1,5 +1,11 @@
 
 export const constants = {
     PORT: 3000,
-    SECRECT_KEY:'adhlajldasdajsdkasjd'
+    SECRECT_KEY: 'SUPERSECRECTKEYTOKEN',
+    EMAIL: 'nodemailer.lerning@gmail.com',
+    PASS_EMAIL: 'Daingtrdai1102',
+    ROLES: {
+        ADMINS: ['ngtrdai197'],
+        USER: 'User'
+    }
 };

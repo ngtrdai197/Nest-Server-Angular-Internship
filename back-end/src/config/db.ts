@@ -1,5 +1,5 @@
 export const db = {
-    DATABASENAME: 'Inversify',
+    DATABASENAME: 'Shop-Internship',
     User: 'ngtrdai197',
     Password: 'anhdaii1'
 }

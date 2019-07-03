@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { IUser } from "../../entities";
+import { IUser } from "../entities";
 
 @injectable()
 export abstract class IUserRepository {
