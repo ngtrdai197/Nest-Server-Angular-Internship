@@ -1,114 +1,125 @@
-:host {
-  display: block;
-  box-shadow: 2px 0 3px rgba(0,0,0,.5);
-  position: relative;
-  .headerbar {
-    left: 0;
-    right: 0;
-    top: 0;
-    z-index: 999;
-    height: 100%;
-    position: absolute;
-    .headerbar-left {
-      background: rgba(0,0,0,.5);
-      float: left;
-      text-align: center;
-      height: 100%;
-      position: relative;
-      width: 15%;
-      z-index: 1;
-
-      .logo {
-
-        color: #e3ebf3 !important;
-        font-size: 20px;
-        font-weight: 200;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        line-height: 48px;
-
+@import "../../../assets/css/variables";
+// Topbar
+.topbar {
+  height: $topbar-base-height;
+  #sidebarToggleTop {
+    height: 2.5rem;
+    width: 2.5rem;
+    &:hover {
+      background-color: $gray-200;
+    }
+    &:active {
+      background-color: $gray-300;
+    }
+  }
+  .navbar-search {
+    width: 25rem;
+  }
+  .topbar-divider {
+    width: 0;
+    border-right: 1px solid $border-color;
+    height: calc(#{$topbar-base-height} - 2rem);
+    margin: auto 1rem;
+  }
+  .nav-item {
+    .nav-link {
+      height: $topbar-base-height;
+      display: flex;
+      align-items: center;
+      padding: 0 0.75rem;
+      &:focus {
+        outline: none;
+      }
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  .dropdown {
+    position: static;
+    .dropdown-menu {
+      width: calc(100% - #{$grid-gutter-width});
+      right: $grid-gutter-width / 2;
+    }
+  }
+  .dropdown-list {
+    padding: 0;
+    border: none;
+    overflow: hidden;
+    .dropdown-header {
+      background-color: $primary;
+      border: 1px solid $primary;
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+      color: $white;
+    }
+    .dropdown-item {
+      white-space: normal;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-left: 1px solid $border-color;
+      border-right: 1px solid $border-color;
+      border-bottom: 1px solid $border-color;
+      line-height: 1.3rem;
+      .dropdown-list-image {
+        position: relative;
+        height: 2.5rem;
+        width: 2.5rem;
         img {
-          width: 50px;
+          height: 2.5rem;
+          width: 2.5rem;
         }
-
-        span {
-          color: #fff;
+        .status-indicator {
+          background-color: $gray-200;
+          height: 0.75rem;
+          width: 0.75rem;
+          border-radius: 100%;
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          border: .125rem solid $white;
+        }
+      }
+      .text-truncate {
+        max-width: 10rem;
+      }
+      &:active {
+        background-color: $gray-200;
+        color: $gray-900;
+      }
+    }
+  }
+  @media (min-width: 575px) {
+    .dropdown {
+      position: relative;
+      .dropdown-menu {
+        width: auto;
+        right: 0;
+      }
+    }
+    .dropdown-list {
+      width: 20rem !important;
+      .dropdown-item {
+        .text-truncate {
+          max-width: 13.375rem;
         }
       }
     }
+  }
+}
 
-    .navbar-custom {
-      background-color: rgba(0,0,0,.5);
-      border-radius: 0;
-      margin-bottom: 0;
-      padding: 0 10px;
-      // margin-left: 15%;
-      min-height: 50px;
-      height: 100%;
+.topbar.navbar-dark {}
+
+.topbar.navbar-light {
+  .navbar-nav {
+    .nav-item {
       .nav-link {
-        padding: 0 8px;
-        line-height: 50px;
-        color: #e9f2ff;
-        font-size: 20px;
-
-        &.dropdown-toggle {
-          &:after {
-            content: initial;
-          }
-
-          .notif-bullet {
-            height: 12px;
-            width: 12px;
-            background-color: #f95200;
-            display: inline-block;
-            position: absolute;
-            top: 13px;
-            right: 8px;
-            border-radius: 50%;
-            border: 2px solid #e2e2e2;
-          }
-
-          .avatar-rounded {
-            cursor: pointer;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-          }
+        color: $gray-400;
+        &:hover {
+          color: $gray-500;
         }
-      }
-
-      .profile-dropdown {
-        width: 170px;
-
-        .notify-item {
-          padding: 10px 20px;
-
-          i {
-            font-size: 17px;
-            vertical-align: middle;
-            margin-right: 5px;
-          }
-
-          span {
-            vertical-align: middle;
-            padding-left: 5px;
-          }
-        }
-      }
-
-      .menu-left {
-        overflow: hidden;
-        position: relative;
-        height: 100%;
-
-        li {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-
-          button {
-            border: none;
-          }
+        &:active {
+          color: $gray-600;
         }
       }
     }

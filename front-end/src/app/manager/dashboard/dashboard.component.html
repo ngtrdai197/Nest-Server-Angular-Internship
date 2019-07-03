@@ -1,12 +1,9 @@
-<shop-header-manager></shop-header-manager>
+<shop-side-menu></shop-side-menu>
 <section class="wrapping">
-  <div class="out-let" [@routeAnimations]="prepareRoute(outlet)">
-    <router-outlet #outlet="outlet"></router-outlet>
+  <shop-header-manager></shop-header-manager>
+  <div class="content-dash">
+    <div class="out-let" [@routeAnimations]="prepareRoute(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
   </div>
-  <mat-sidenav-container class="example-container">
-    <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')"
-      (closed)="events.push('close!')">
-      <shop-side-menu></shop-side-menu>
-    </mat-sidenav>
-  </mat-sidenav-container>
 </section>
