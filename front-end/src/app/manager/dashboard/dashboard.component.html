@@ -1,7 +1,12 @@
 <shop-header-manager></shop-header-manager>
 <section class="wrapping">
   <div class="out-let" [@routeAnimations]="prepareRoute(outlet)">
-    <router-outlet  #outlet="outlet"></router-outlet>
+    <router-outlet #outlet="outlet"></router-outlet>
   </div>
-  <shop-side-menu></shop-side-menu>
+  <mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')"
+      (closed)="events.push('close!')">
+      <shop-side-menu></shop-side-menu>
+    </mat-sidenav>
+  </mat-sidenav-container>
 </section>

@@ -38,6 +38,8 @@ import { trigger, transition, style, query, animateChild, group, animate } from 
 })
 export class DashboardComponent implements OnInit {
 
+  events: string[] = [];
+  opened: boolean;
   constructor(private title: Title) { }
 
   ngOnInit() {

@@ -13,7 +13,7 @@ const routes: Routes = [
 
   { path: 'home', component: HomepageComponent },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
-  { path: 'admin', loadChildren: () => import('./manager/manager.module').then(m => m.ManagerModule), canActivate: [AuthGuard] },
+  { path: 'admin', loadChildren: () => import('./manager/manager.module').then(m => m.ManagerModule) },
   // {
   //   path: 'home', component: LayoutComponent, children: [
   //     { path: '', component: HomepageComponent }

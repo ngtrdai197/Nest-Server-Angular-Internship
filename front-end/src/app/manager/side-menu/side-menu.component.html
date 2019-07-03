@@ -1,5 +1,8 @@
 <section class="left-side-menu on-desktop">
   <ul>
+    <li>
+      <button (click)="sidenav.toggle()">X</button>
+    </li>
     <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
       <span><i class="fa fa-address-book"></i></span>
       <a routerLink="/admin/dash-board/management-user">
@@ -21,4 +24,3 @@
     </li>
   </ul>
 </section>
-

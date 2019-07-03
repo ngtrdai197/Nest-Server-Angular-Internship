@@ -8,6 +8,10 @@ import { ShareService } from 'src/@core/services/shared/share.service';
 })
 export class SideMenuComponent implements OnInit {
 
+  events: string[] = [];
+  opened: boolean;
+
+  shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
   constructor() { }
 
   ngOnInit() {
