@@ -1,0 +1,23 @@
+<div class="example-form" *ngIf="data.status">
+  <mat-form-field class="example-full-width">
+    <input matInput type="text" placeholder="Tên danh mục sản phẩm" [(ngModel)]="categoryName">
+  </mat-form-field>
+  <div class="wrapping-action-button">
+    <button mat-raised-button color="primary" (click)="onUpdate()">Cập nhật</button>
+    <button mat-raised-button mat-dialog-close color="warn">Hủy bỏ</button>
+  </div>
+</div>
+
+<!-- form create new user -->
+
+<div class="example-form" *ngIf="!data.status">
+  <mat-form-field class="example-full-width">
+    <input matInput type="text" placeholder="Username" #categoryname>
+  </mat-form-field>
+
+  <div class="wrapping-action-button">
+    <button mat-raised-button color="primary"
+      (click)="onAddNewCategory(categoryname.value)">Thêm</button>
+    <button mat-raised-button mat-dialog-close color="warn">Hủy bỏ</button>
+  </div>
+</div>

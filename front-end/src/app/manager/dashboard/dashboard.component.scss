@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  background: url(../../../assets/dash-board/blur-bg-blurred.jpg) no-repeat;
+  app-header-manager {
+    height: 6vh;
+  }
+  .wrapping {
+    display: flex;
+    height: 94vh;
+    .out-let {
+      flex: 1;
+      order: 2;
+      overflow: hidden;
+    }
+  }
+}
