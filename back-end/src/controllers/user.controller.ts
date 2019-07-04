@@ -7,7 +7,7 @@ import * as jwt from 'jsonwebtoken';
 import * as httpError from 'http-errors';
 import { parser } from "../middleware";
 import { UserRepository } from "../repositories";
-import { hashSync, compareSync } from 'bcrypt';
+import { hashSync, compareSync } from 'bcryptjs';
 import { email } from '../common/email';
 
 @controller("/user")
@@ -43,8 +43,8 @@ export class UserController {
       if (!checkUserName) {
         const checkEmail = await this.userRepository.findOne({ email: user.email });
         if (!checkEmail) {
-          user.password = hashSync(user.password, 10);
-          user.email = hashSync(user.email, 10);
+          user.password = hashSync((user.password as string), 10);
+          user.email = hashSync((user.email as string), 10);
 
           return await this.userRepository.create(user);
         }
