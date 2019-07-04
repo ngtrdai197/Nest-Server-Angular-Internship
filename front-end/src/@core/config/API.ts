@@ -1,10 +1,10 @@
 export const API = {
-  HOST: "http://localhost:8080",
+  HOST: "http://localhost:3000",
   LOGIN: "",
   USER: {
-    DELETE_USER: "users/api",
-    CREATE_USER: "users/create",
-    UPDATE_USER:"users/update"
+    DELETE_USER: "api/user",
+    CREATE_USER: "api/user",
+    UPDATE_USER:"api/user"
   },
   CATEGORY:{
     GET_ALL:"category/api",

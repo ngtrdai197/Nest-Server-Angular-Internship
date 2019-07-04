@@ -16,7 +16,7 @@ export class UserController {
     @inject(TYPES.IUserRepository) private userRepository: UserRepository
   ) { }
 
-  @httpGet("/", parser(['admin']))
+  @httpGet("/")
   public async findAll(): Promise<IUser[]> {
     try {
       return await this.userRepository.findAll();
@@ -25,7 +25,7 @@ export class UserController {
     }
   }
 
-  @httpGet("/:id")
+  @httpGet("/:id", parser(['admin']))
   public async findOne(req: Request): Promise<IUser> {
     try {
       const query = { _id: req.params.id };
@@ -101,10 +101,12 @@ export class UserController {
     }
   }
 
-  @httpPut("/")
+  @httpPut("/:id")
   public async update(req: Request): Promise<IUser> {
     try {
-      return await this.userRepository.update(req.body);
+      const user = (req.body as IUser);
+      user.id = req.params.id;
+      return await this.userRepository.update(user);
     } catch (error) {
       throw error;
     }

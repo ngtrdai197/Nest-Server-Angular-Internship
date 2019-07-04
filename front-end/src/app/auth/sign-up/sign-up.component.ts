@@ -18,9 +18,9 @@ export class SignUpComponent implements OnInit {
     this.onSetTitle();
   }
 
-  onSignUp(username, fullname, address, password, email, phone) {
+  onSignUp(username, fullName, address, password, email, phone) {
     const newUser: IUser = {
-      username, password, fullname, address, email, phone
+      username, password, fullName, address, email, phone
     };
     this.userService.onCreateNewUser(newUser).subscribe(response => {
       if (response) {

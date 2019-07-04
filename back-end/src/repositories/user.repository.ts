@@ -10,7 +10,7 @@ export class UserRepository implements IUserRepository {
   };
 
   findAll = async (): Promise<IUser[]> => {
-    return await userModel.find({}).select('-password -__v');
+    return await userModel.find({}).select('-__v');
   };
 
   create = async (user: IUser): Promise<IUser> => {
@@ -19,7 +19,7 @@ export class UserRepository implements IUserRepository {
 
   update = async (user: IUser): Promise<IUser> => {
     await userModel.findByIdAndUpdate(user.id, user);
-    const updated = await userModel.findById(user.id).select('-password -__v');
+    const updated = await userModel.findById(user.id).select('-__v');
     
     return updated as IUser;
   };

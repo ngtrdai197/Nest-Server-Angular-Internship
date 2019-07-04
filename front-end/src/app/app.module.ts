@@ -27,7 +27,7 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot()
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpInterCeptorService, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: HttpInterCeptorService, multi: true },
   ],
   bootstrap: [AppComponent]
 })

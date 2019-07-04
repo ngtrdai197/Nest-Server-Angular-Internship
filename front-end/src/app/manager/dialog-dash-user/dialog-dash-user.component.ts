@@ -39,7 +39,7 @@ export class DialogDashUserComponent implements OnInit {
     if (this.data.user) {
       this.username = this.data.user.username;
       this.password = this.data.user.password;
-      this.fullname = this.data.user.fullname;
+      this.fullname = this.data.user.fullName;
       this.address = this.data.user.address;
       this.email = this.data.user.email,
       this.phone = this.data.user.phone,
@@ -50,7 +50,7 @@ export class DialogDashUserComponent implements OnInit {
     const user: IUser = {
       username: this.username,
       password: this.password,
-      fullname: this.fullname,
+      fullName: this.fullname,
       address: this.address,
       email: this.email,
       phone: this.phone,
@@ -58,7 +58,7 @@ export class DialogDashUserComponent implements OnInit {
     }
     this.userService.onUpdateUser(this.data.user._id, user).subscribe(response => {
       if (response) {
-        this.toastService.success(`${response['message']}`, 'Thông báo');
+        this.toastService.success(`Cập nhật thông tin thành công`, 'Thông báo');
         this.dialogRef.close();
       }
     }, err => {
@@ -70,9 +70,9 @@ export class DialogDashUserComponent implements OnInit {
     });
     this.dialogRef.close();
   }
-  onAddNewUser(username, password, fullname, address, email, phone) {
+  onAddNewUser(username, password, fullName, address, email, phone) {
     const user: IUser = {
-      username, password, fullname, address, role: this.role, email, phone
+      username, password, fullName, address, role: this.role, email, phone
     }
     this.userService.onCreateNewUser(user).subscribe(response => {
       if (response) {

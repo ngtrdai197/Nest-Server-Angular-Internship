@@ -6,8 +6,12 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    .out-let {
-      overflow: hidden;
+    .content-dash{
+      height: 90vh;
+      .out-let {
+        overflow: hidden;
+        height: 100%;
+      }
     }
   }
 }

@@ -3,6 +3,7 @@ import { createContainer } from "./di-container";
 import { InversifyExpressServer } from "inversify-express-utils";
 import * as bodyParser from "body-parser";
 import * as helmet from "helmet";
+import * as cors from 'cors';
 
 export const inversifyExpressServer = async (
     app: express.Application
@@ -17,6 +18,7 @@ export const inversifyExpressServer = async (
         app
     );
     server.setConfig(app => {
+        app.options('*', cors());
         app.use(
             bodyParser.urlencoded({
                 extended: true

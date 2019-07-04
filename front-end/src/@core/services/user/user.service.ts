@@ -10,11 +10,11 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   onSignIn(user: any): Observable<any> {
-    return this.http.post(`${API.HOST}/auth/token`, user);
+    return this.http.post(`${API.HOST}/api/user/auth/login`, user);
   }
 
   onFetchUsers(): Observable<IUser[]> {
-    return this.http.get<IUser[]>(`${API.HOST}/users/api`);
+    return this.http.get<IUser[]>(`${API.HOST}/api/user`);
   }
 
   onDeleteUser(id: String): Observable<Object> {
