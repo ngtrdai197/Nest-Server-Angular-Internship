@@ -10,8 +10,16 @@ import { HttpInterCeptorService } from 'src/@core/config/http-inter-ceptor.servi
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { SlickCarouselModule } from 'ngx-slick-carousel'
 
-
+import { SWIPER_CONFIG, SwiperModule } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+ 
+const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'horizontal',
+  slidesPerView: 'auto'
+};
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,10 +32,16 @@ import { ToastrModule } from 'ngx-toastr';
     SharedModule,
     HttpClientModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    SlickCarouselModule,
+    SwiperModule
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: HttpInterCeptorService, multi: true },
+    {
+      provide: SWIPER_CONFIG,
+      useValue: DEFAULT_SWIPER_CONFIG
+    }
   ],
   bootstrap: [AppComponent]
 })

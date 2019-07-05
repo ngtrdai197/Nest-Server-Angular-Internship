@@ -2144,6 +2144,13 @@ dom-serialize@^2.2.0:
     extend "^3.0.0"
     void-elements "^2.0.0"
 
+dom7@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/dom7/-/dom7-2.1.3.tgz#a736f9c3bfbc4ca039a81cd095f97d1d7f3de19c"
+  integrity sha512-QTxHHDox+M6ZFz1zHPAHZKI3JOHY5iY4i9BK2uctlggxKQwRhO3q3HHFq1BKsT25Bm/ySSj70K6Wk/G4bs9rMQ==
+  dependencies:
+    ssr-window "^1.0.1"
+
 domain-browser@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.2.0.tgz#3d31f50191a6749dd1375a7f522e823d42e54eda"
@@ -4401,12 +4408,26 @@ neo-async@^2.5.0, neo-async@^2.6.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
+ngx-slick-carousel@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/ngx-slick-carousel/-/ngx-slick-carousel-0.4.4.tgz#9608c995ec40ff6cc89b1755aa08ab08cc5486ea"
+  integrity sha512-z/cu8CL7LlUaqtImxC595V644efgjHTdQ9+u3AqL/igQYSELRryENGVH0jyPZuJSpSNvi52I2HGeifPsEd7bkg==
+  dependencies:
+    tslib "^1.9.0"
+
 ngx-spinner@^7.1.4:
   version "7.1.4"
   resolved "https://registry.yarnpkg.com/ngx-spinner/-/ngx-spinner-7.1.4.tgz#d271b91b60426d156c45e939e105b5da82c87aa5"
   integrity sha512-J8+ObulyapAjJfW2bEfFnlmSnp1NA80vtuplZjTa/wQa1Z6tBptmV2g0OLVCJhu/5wjmxV+gbMfN/t2FDup0Bw==
   dependencies:
     tslib "^1.9.0"
+
+ngx-swiper-wrapper@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-swiper-wrapper/-/ngx-swiper-wrapper-8.0.0.tgz#f6cf72537cecccc28723cc1190ecd2756dec7586"
+  integrity sha512-pckYHWwBbK6xgZIPmJRSoDR35li2Wj2e0yo7PzgDKbEARy1KzHGL6d/5e+aUQ8bpEALjRtYlGovsw+yMInXXIQ==
+  dependencies:
+    swiper "^4.5.0"
 
 ngx-toastr@^10.0.2:
   version "10.0.4"
@@ -6129,6 +6150,11 @@ sshpk@^1.7.0:
     safer-buffer "^2.0.2"
     tweetnacl "~0.14.0"
 
+ssr-window@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ssr-window/-/ssr-window-1.0.1.tgz#30752a6a4666e7767f0b7e6aa6fc2fdbd0d9b369"
+  integrity sha512-dgFqB+f00LJTEgb6UXhx0h+SrG50LJvti2yMKMqAgzfUmUXZrLSv2fjULF7AWGwK25EXu8+smLR3jYsJQChPsg==
+
 ssri@^6.0.0, ssri@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/ssri/-/ssri-6.0.1.tgz#2a3c41b28dd45b62b63676ecb74001265ae9edd8"
@@ -6320,6 +6346,14 @@ supports-color@^6.1.0:
   integrity sha512-qe1jfm1Mg7Nq/NSh6XE24gPXROEVsWHxC1LIx//XNlD9iw7YZQGjZNjYN7xGaEG6iKdA8EtNFW6R0gjnVXp+wQ==
   dependencies:
     has-flag "^3.0.0"
+
+swiper@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-4.5.0.tgz#4d870bec4f5abe2fb259325849dd2641c9243c0d"
+  integrity sha512-jRCd/CGet9kaHwthHdd/sL/YU8CI157PWLyItnIcn/o/jP4haVky3zTF6f9F3JDpmQIw7jdWihISiYx0/oTHsg==
+  dependencies:
+    dom7 "^2.1.3"
+    ssr-window "^1.0.1"
 
 symbol-observable@1.2.0:
   version "1.2.0"
