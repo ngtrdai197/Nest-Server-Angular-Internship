@@ -47,7 +47,7 @@ export class DashCategoryComponent implements OnInit {
 
   openDialogEdit(category) {
     const dialogRef = this.dialog.open(DialogDashCategoryComponent, {
-      width: '250px',
+      width: '450px',
       data: { category, status: true }
     });
 
@@ -71,8 +71,8 @@ export class DashCategoryComponent implements OnInit {
 
   onDeleteCategory() {
     this.categoryService.onDeleteCategory(this.selectedIdDetele).subscribe(response => {
-      if (response) {
-        this.toastService.success(`${response['message']}`, 'Thông báo');
+      if (response['isDeleted']) {
+        this.toastService.success(`Xóa danh mục thành công`, 'Thông báo');
         this.categorys.splice(this.categorys.findIndex(x => x._id === this.selectedIdDetele), 1);
         this.onDataTable();
       }

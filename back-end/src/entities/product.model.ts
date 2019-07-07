@@ -1,5 +1,6 @@
 import * as mongoose from "mongoose";
 import { ICategory } from "./index";
+import { IUser } from "./user.model";
 
 export interface IProduct {
     id?: string;
@@ -8,9 +9,18 @@ export interface IProduct {
     description?: string;
     currentPrice?: number
     oldPrice?: number;
-    discount?: number
+    discount?: number;
     images?: string[];
     category?: string | ICategory;
+    productTotal?: number;
+    productAvailable?: number;
+    ratings?: number; // ratings
+    productBoughtBy?: Customer;
+}
+
+export interface Customer {
+    customer?: string | IUser;
+    boughtAtDate?: Date;
 }
 
 export interface IProductModel extends IProduct, mongoose.Document {
@@ -40,7 +50,28 @@ const productSchema = new mongoose.Schema(
         category: {
             type: mongoose.Schema.Types.ObjectId, ref: 'Category',
             required: true
-        }
+        },
+        productTotal: {
+            type: Number,
+            required: true
+        },
+        productAvailable: {
+            type: Number,
+            required: true
+        },
+        ratings: {
+            type: Number
+        },
+        productBoughtBy: new mongoose.Schema({
+            customerId: {
+                type: mongoose.Schema.Types.ObjectId, ref: 'User',
+                required: true
+            },
+            boughtAtDate: {
+                type: Date,
+                required: true
+            }
+        })
     },
     {
         toObject: {

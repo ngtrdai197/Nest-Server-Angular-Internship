@@ -1,16 +1,20 @@
 export const API = {
   HOST: "http://localhost:3000",
   LOGIN: "",
-  USER: {
-    DELETE_USER: "api/user",
-    CREATE_USER: "api/user",
-    UPDATE_USER:"api/user"
+  ROLES: {
+    ADMIN: 'Admin',
+    USER: 'User'
   },
-  CATEGORY:{
-    GET_ALL:"category/api",
-    GET_ALL_PRODUCTS:"category/api/findallproducts",
-    DELETE_CATEGORY:"category/api/delete",
-    CREATE_CATEGORY:"category/create",
+  USER: {
+    BASE: "api/user",
+  },
+  CATEGORY: {
+    BASE: "api/category",
+    TYPE: "query"
+  },
+  PRODUCT: {
+    BASE: "api/product",
+    GET_BY_CATEGORY: "category"
   }
 
 }

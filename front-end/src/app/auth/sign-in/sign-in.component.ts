@@ -29,7 +29,7 @@ export class SignInComponent implements OnInit {
     this.userService.onSignIn(user).subscribe(data => {
       if (data) {
         this.jwtService.setToken(data.token);
-        this.jwtService.setUser(data.user);
+        this.jwtService.getUserProfileByToken();
         this.toastService.success('Đăng nhập thành công', ' Đăng nhập');
         this.router.navigate(['']);
       }

@@ -13,20 +13,22 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogDashUserComponent } from './dialog-dash-user/dialog-dash-user.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashCategoryComponent } from './dash-category/dash-category.component';
 import { DialogDashCategoryComponent } from './dialog-dash-category/dialog-dash-category.component';
 import { DialogDashProductComponent } from './dialog-dash-product/dialog-dash-product.component';
 import { SharedModule } from 'src/@shared/shared.module';
+import { OrderManagementComponent } from './order-management/order-management.component';
 
 
 const routes: Routes = [
   {
     path: 'dash-board', component: DashboardComponent, children: [
-      { path: '', redirectTo: 'management-user', pathMatch: 'full' },
-      { path: 'management-user', component: DashUserComponent, data: { animation: 'Dash-User' } },
-      { path: 'management-product', component: DashProductComponent, data: { animation: 'Dash-Product' } },
-      { path: 'management-category', component: DashCategoryComponent },
+      { path: '', redirectTo: 'user-management', pathMatch: 'full' },
+      { path: 'user-management', component: DashUserComponent, data: { animation: 'Dash-User' } },
+      { path: 'product-management/:id', component: DashProductComponent, data: { animation: 'Dash-Product' } },
+      { path: 'category-management', component: DashCategoryComponent, data: { animation: 'Dash-Category' } },
+      { path: 'order-management', component: OrderManagementComponent, data: { animation: 'Dash-Order' } }
     ]
   }
 ]
@@ -37,7 +39,7 @@ const routes: Routes = [
     DashboardComponent, DashboardContentComponent,
     DashUserComponent, DashProductComponent,
     DialogDashUserComponent, DashCategoryComponent,
-    DialogDashCategoryComponent, DialogDashProductComponent
+    DialogDashCategoryComponent, DialogDashProductComponent, OrderManagementComponent
   ],
   imports: [
     CommonModule,
@@ -54,6 +56,7 @@ const routes: Routes = [
     MatSelectModule,
     MatOptionModule,
     MatSidenavModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
   entryComponents: [

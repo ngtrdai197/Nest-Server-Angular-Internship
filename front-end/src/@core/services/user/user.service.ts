@@ -18,14 +18,14 @@ export class UserService {
   }
 
   onDeleteUser(id: String): Observable<Object> {
-    return this.http.delete<Object>(`${API.HOST}/${API.USER.DELETE_USER}/${id}`);
+    return this.http.delete<Object>(`${API.HOST}/${API.USER.BASE}/${id}`);
   }
 
   onCreateNewUser(user: IUser): Observable<Object> {
-    return this.http.post<Object>(`${API.HOST}/${API.USER.CREATE_USER}`, user);
+    return this.http.post<Object>(`${API.HOST}/${API.USER.BASE}`, user);
   }
 
   onUpdateUser(id: String, user: IUser): Observable<Object> {
-    return this.http.put<Object>(`${API.HOST}/${API.USER.UPDATE_USER}/${id}`, user);
+    return this.http.put<Object>(`${API.HOST}/${API.USER.BASE}/${id}`, user);
   }
 }

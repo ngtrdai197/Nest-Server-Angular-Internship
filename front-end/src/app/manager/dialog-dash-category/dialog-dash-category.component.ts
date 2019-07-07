@@ -12,25 +12,45 @@ import { ICategory } from 'src/@core/interface/ICategory.interface';
 })
 export class DialogDashCategoryComponent implements OnInit {
 
-  categoryName: "";
+  categoryName: String;
   constructor(
     public dialogRef: MatDialogRef<DialogDashCategoryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IDialogCategory,
     private toastService: ToastrService,
     private categoryService: CategoryService
-  ) { }
+  ) {
+    this.onCheckData();
+  }
 
   ngOnInit() {
   }
 
-  onUpdate() { }
-  onAddNewCategory(categoryName) {
+  onCheckData() {
+    if (this.data.category) {
+      this.categoryName = this.data.category.categoryName;
+    }
+  }
+
+  onUpdate() {
+    this.data.category.categoryName = this.categoryName;
+    this.categoryService.onUpdateCategory(this.data.category).subscribe(response => {
+      if (response) {
+        this.toastService.success(`Cập nhật danh mục thành công`);
+        this.dialogRef.close();
+      }
+    }, err => {
+      if (err) {
+        this.toastService.error(`${err.error.message}`, 'Thông báo');
+      }
+    })
+  }
+  onAddNewCategory(categoryName: string) {
     const category: ICategory = {
       categoryName
     }
     this.categoryService.onAddCategory(category).subscribe(response => {
       if (response) {
-        this.toastService.success(`${response['message']}`, 'Thông báo');
+        this.toastService.success(`Thêm danh mục thành công`);
         this.dialogRef.close();
       }
     }, err => {

@@ -9,8 +9,8 @@ export class ProductRepository implements IProductRepository {
         return product as IProduct;
     };
 
-    findAll = async (): Promise<IProduct[]> => {
-        return await productModel.find({});
+    findAll = async (query: any): Promise<IProduct[]> => {
+        return await productModel.find(query);
     };
 
     create = async (product: IProduct): Promise<IProduct> => {

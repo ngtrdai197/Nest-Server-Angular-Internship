@@ -1,11 +1,22 @@
+import { IUser } from './index';
+
 export interface IProduct {
-  _id?: String;
+  id?: String;
   productName: String;
   title: String;
-  current_price: Number;
+  currentPrice: Number;
   category: String
-  old_price?: Number;
+  oldPrice?: Number;
   discount?: Number;
   description?: String
   images?: String[];
+  productTotal?: number;
+  productAvailable?: number;
+  ratings?: number; // ratings
+  productBoughtBy?: Customer;
+}
+
+export interface Customer {
+  customer?: IUser | String;
+  boughtAtDate?: Date;
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShareService } from 'src/@core/services/shared/share.service';
+import { CategoryService } from 'src/@core/services/category/category.service';
+import { ICategory } from 'src/@core/interface/ICategory.interface';
 
 
 
@@ -11,9 +13,16 @@ import { ShareService } from 'src/@core/services/shared/share.service';
 export class SideMenuComponent implements OnInit {
 
   toggleSideBar = true;
-  constructor() { }
+  categoryTypes: any;
+  constructor(private categoryService: CategoryService) { }
 
   ngOnInit() {
+    this.categoryService.onCategoryTypes().subscribe(data => {
+      this.categoryTypes = data;
+    });
+  }
+  selectCategory(category: ICategory){
+    
   }
 
 }

@@ -8,7 +8,16 @@
       </ul>
       <ul class="header-links pull-right">
         <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-        <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+        <li *ngIf="!currentUser"><a (click)="myAccount()"><i class="fa fa-user-o"></i> My Account</a></li>
+        <li *ngIf="currentUser"><a class="dropdown-toggle" role="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">Xin chào: {{currentUser?.fullName}}</a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" (click)="onNavigateAdmin()" *ngIf="currentUser?.role === role.ADMIN">Dash board
+              (Admin)</a>
+            <a class="dropdown-item" href="#">Thông tin cá nhân</a>
+            <a class="dropdown-item" (click)="onSignOut()">Đăng xuất</a>
+          </div>
+        </li>
       </ul>
       <div style="clear: both;"></div>
     </div>
@@ -55,7 +64,7 @@
                 <div class="cart-list">
                   <div class="product-widget">
                     <div class="product-img">
-                      <img src="./img/product01.png" alt="">
+                      <img src="" alt="">
                     </div>
                     <div class="product-body">
                       <h3 class="product-name"><a href="#">product name goes here</a></h3>
@@ -66,7 +75,7 @@
 
                   <div class="product-widget">
                     <div class="product-img">
-                      <img src="./img/product02.png" alt="">
+                      <img src="" alt="">
                     </div>
                     <div class="product-body">
                       <h3 class="product-name"><a href="#">product name goes here</a></h3>

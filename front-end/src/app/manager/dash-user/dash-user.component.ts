@@ -90,9 +90,7 @@ export class DashUserComponent implements OnInit {
     this.dataSource = new MatTableDataSource<IUser>(this.users);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1500);
+    this.isLoading = false;
   }
 
   applyFilter(filterValue: string) {

@@ -5,7 +5,9 @@ export const constants = {
     EMAIL: 'nodemailer.lerning@gmail.com',
     PASS_EMAIL: 'Daingtrdai1102',
     ROLES: {
-        ADMINS: ['ngtrdai197'],
-        USER: 'User'
-    }
+        ADMIN: 'admin',
+        USER: 'user'
+    },
+    ADMIN_USER: ['ngtrdai197', 'ngtrdai2k']
+
 };

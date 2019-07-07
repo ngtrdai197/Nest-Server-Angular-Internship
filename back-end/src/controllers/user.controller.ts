@@ -6,14 +6,14 @@ import { IUser } from "../entities";
 import * as jwt from 'jsonwebtoken';
 import * as httpError from 'http-errors';
 import { parser } from "../middleware";
-import { UserRepository } from "../repositories";
 import { hashSync, compareSync } from 'bcryptjs';
 import { email } from '../common/email';
+import { IUserRepository } from "../IRepositories";
 
 @controller("/user")
 export class UserController {
   constructor(
-    @inject(TYPES.IUserRepository) private userRepository: UserRepository
+    @inject(TYPES.IUserRepository) private userRepository: IUserRepository
   ) { }
 
   @httpGet("/")
@@ -25,10 +25,20 @@ export class UserController {
     }
   }
 
-  @httpGet("/:id", parser(['admin']))
+  @httpGet("/find/:id")
   public async findOne(req: Request): Promise<IUser> {
     try {
       const query = { _id: req.params.id };
+      return await this.userRepository.findOne(query);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @httpGet("/token", parser([constants.ROLES.USER]))
+  public async getUserProfile(req: any): Promise<IUser> {
+    try {
+      const query = { _id: req.user };
       return await this.userRepository.findOne(query);
     } catch (error) {
       throw error;
@@ -65,7 +75,7 @@ export class UserController {
         const compare = await compareSync(body.password, user.password as string);
         if (compare) {
           const token = await jwt.sign({
-            id: user.id, username: user.username
+            id: user.id, username: user.username, role: user.role
           }, constants.SECRECT_KEY, { expiresIn: '1h' });
           return Promise.resolve({ token });
         }

@@ -11,9 +11,9 @@ import { AuthUserGuard } from 'src/@core/auth/auth-user.guard';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
-  { path: 'home', component: HomepageComponent },
+  { path: 'home', loadChildren: () => import('./homepage/homepage.module').then(m => m.HomepageModule) },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
-  { path: 'admin', loadChildren: () => import('./manager/manager.module').then(m => m.ManagerModule) },
+  { path: 'admin', loadChildren: () => import('./manager/manager.module').then(m => m.ManagerModule), canActivate: [AuthGuard] },
   // {
   //   path: 'home', component: LayoutComponent, children: [
   //     { path: '', component: HomepageComponent }

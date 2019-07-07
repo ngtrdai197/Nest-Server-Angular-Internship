@@ -1,4 +1,8 @@
 @import "../../../assets/css/variables";
+:host{
+  display: block;
+  height: 13vh;
+}
 // Topbar
 .topbar {
   height: $topbar-base-height;

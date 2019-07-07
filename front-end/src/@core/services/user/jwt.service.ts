@@ -1,29 +1,47 @@
 import { Injectable } from '@angular/core';
 import * as decode from 'jwt-decode';
+import { BehaviorSubject } from 'rxjs';
+import { IUser } from 'src/@core/interface';
+import { HttpClient } from '@angular/common/http';
+import { API } from 'src/@core/config/API';
 
-@Injectable({providedIn:"root"})
+@Injectable({ providedIn: "root" })
 export class JwtService {
-  constructor() { }
+  private userProfile = new BehaviorSubject<IUser>(null);
+
+  get getProfile() {
+    return this.userProfile.asObservable();
+  }
+
+  constructor(private http: HttpClient) { }
+
+  setUserProfile(user: IUser) {
+    this.userProfile.next(user);
+  }
+
+  checkUserProfile() {
+    return this.userProfile.getValue() ? true : false;
+  }
+
+  getUserProfileByToken() {
+    this.http.get(`${API.HOST}/${API.USER.BASE}/token`).subscribe(response => {
+      return this.setUserProfile(response as IUser);
+    }, err => {
+      throw err;
+    });
+  }
 
   setToken(token) {
     localStorage.setItem('x-access-token', token);
-  }
-  setUser(user) {
-    localStorage.setItem('user',JSON.stringify(user));
-  }
-  getUser() {
-    return localStorage.getItem('user');
   }
   getToken() {
     return localStorage.getItem('x-access-token');
   }
   destroyToken() {
     localStorage.removeItem('x-access-token');
-    localStorage.removeItem('user');
   }
-  decodeToken(token){
+  decodeToken(token) {
     const decoded = decode(token);
-
     return decoded;
   }
 
