@@ -6,6 +6,8 @@ import { ProductModule } from './product/product.module';
 import { CategoryModule } from './category/category.module';
 import { OrderModule } from './order/order.module';
 import { constants } from './constants';
+import { CommonModule } from './common/common.module';
+import { MulterModule } from '@nestjs/platform-express';
 @Module({
   imports: [
     UserModule,
@@ -13,7 +15,11 @@ import { constants } from './constants';
     ProductModule,
     CategoryModule,
     OrderModule,
-    MongooseModule.forRoot(`mongodb://localhost/${constants.DATABASE}`)
+    CommonModule,
+    MulterModule.register({
+      dest: './upload'
+    }),
+    MongooseModule.forRoot(`mongodb+srv://${constants.User}:${constants.Password}@cluster0-esass.mongodb.net/${constants.DATABASENAME}?retryWrites=true&w=majority`)
   ],
   controllers: [],
   providers: [],

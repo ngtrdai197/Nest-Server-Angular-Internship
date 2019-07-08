@@ -1,22 +1,34 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { CreateUserDto } from 'src/user/dto';
+import { compareSync } from 'bcryptjs';
 import { JwtPayload } from '../interface/jwt-payload.interface';
-import { User } from 'dist/user/interface';
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../../user/user.service';
+import { Login } from '../interface/login.interface';
+import { User } from 'src/user/interface';
 
 @Injectable()
 export class AuthService {
     constructor(private readonly jwtService: JwtService, private userService: UserService) { }
 
-    async createToken(user: CreateUserDto): Promise<any> {
-        const payload: JwtPayload = {
-            id: user.id,
-            email: user.email,
-            role: user.role
-        };
-        const token = await this.jwtService.sign(payload);
-        return Promise.resolve({ token });
+    async createToken(user: Login): Promise<any> {
+        const data = await this.userService.findOne({ username: user.username });
+        if (data) {
+            if (await compareSync(user.password as string, data.password)) {
+                const payload: JwtPayload = {
+                    id: data.id,
+                    email: data.email,
+                    role: data.role
+                };
+                const token = await this.jwtService.sign(payload);
+                return Promise.resolve({ token });
+            }
+        }
+        throw new HttpException('Thông tin không hợp lệ', HttpStatus.BAD_REQUEST);
+
+    }
+
+    async findAll(): Promise<User[]> {
+        return await this.userService.findAll();
     }
 
     async validateUser(validatePayload: JwtPayload): Promise<User> {

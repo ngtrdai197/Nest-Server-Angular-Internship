@@ -12,3 +12,8 @@ export interface User extends Document {
     readonly address?: string;
     readonly orderDetails?: string | Order;
 }
+
+export enum UserRole {
+    Admin = 'Admin',
+    User = 'User'
+}

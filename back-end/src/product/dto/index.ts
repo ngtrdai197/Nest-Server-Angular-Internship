@@ -1,5 +1,5 @@
-import { CreateCategoryDto } from "dist/category/dto";
 import { Customer } from "../interface";
+import { CreateCategoryDto } from "src/category/dto";
 
 export interface CreateProductDto {
     readonly id?: string;
