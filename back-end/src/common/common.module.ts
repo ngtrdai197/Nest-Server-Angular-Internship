@@ -14,7 +14,7 @@ import { RolesGuard } from './guard/roles.guard';
         JwtModule.register({
             secret: constants.MASTER_SECRET_KEY,
             signOptions: {
-                expiresIn: 3600
+                expiresIn: '7d'
             }
         }),
         UserModule

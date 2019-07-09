@@ -8,6 +8,7 @@ import { RolesGuard } from '../common/guard/roles.guard';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { UserRole } from './interface/index';
+import { Request } from 'express';
 
 @Controller('user')
 export class UserController {
@@ -39,14 +40,18 @@ export class UserController {
     }
 
     @Delete(":id")
-    async delelte(@Param("id") id: string):Promise<any>{
+    @SetMetadata('roles', [UserRole.Admin])
+    @UseGuards(AuthGuard('jwt'), RolesGuard)
+    async delelte(@Param("id") id: string): Promise<any> {
         return await this.userService.delete(id);
     }
 
     @Get()
     @SetMetadata('roles', [UserRole.Admin])
     @UseGuards(AuthGuard('jwt'), RolesGuard)
-    async findAll(): Promise<User[]> {
+    async findAll(@Req() req: Request): Promise<User[]> {
+        console.log('user controller', req.user);
+        
         return await this.userService.findAll();
     }
 }

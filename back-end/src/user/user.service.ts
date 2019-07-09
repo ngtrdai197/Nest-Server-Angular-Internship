@@ -1,37 +1,29 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { hashSync, compareSync } from 'bcryptjs';
+import { hashSync } from 'bcryptjs';
 import { Model } from 'mongoose';
 import { User } from './interface';
 import { CreateUserDto } from './dto';
+import { IUserService } from '../interfaces/IUser.service';
 
 @Injectable()
-export class UserService {
+export class UserService implements IUserService {
     constructor(@InjectModel('User') private readonly userModel: Model<User>) { }
 
     async create(createUserDto: CreateUserDto): Promise<User> {
         try {
             const checkUserName = await this.userModel.findOne({ username: createUserDto.username });
             if (!checkUserName) {
-                const hashEmail = hashSync(createUserDto.email, 10);
-                console.log(hashEmail);
-                
-                const checkEmail = await this.userModel.findOne({ email: hashEmail });
-                // console.log(createUserDto);
-                console.log(checkEmail);
+                const checkEmail = await this.userModel.findOne({ email: createUserDto.email });
 
+                if (!checkEmail) {
+                    (createUserDto.password as string) = hashSync((createUserDto.password as string), 10);
 
-                // console.log(await compareSync(createUserDto.email as string, checkEmail.email));
-
-                // if (!await compareSync(createUserDto.email as string, checkEmail.email)) {
-                //     (createUserDto.password as string) = hashSync((createUserDto.password as string), 10);
-                //     (createUserDto.email as string) = hashSync((createUserDto.email as string), 10);
-
-                //     return await this.userModel.create(createUserDto);
-                // }
-                throw new HttpException('Email đã bị trùng', HttpStatus.BAD_REQUEST);
+                    return await this.userModel.create(createUserDto);
+                }
+                throw new HttpException('Email đã tồn tại', HttpStatus.BAD_REQUEST);
             }
-            throw new HttpException('Username đã bị trùng', HttpStatus.BAD_REQUEST);
+            throw new HttpException('Username đã tồn tại', HttpStatus.BAD_REQUEST);
         } catch (error) {
             throw error;
         }

@@ -1,8 +1,9 @@
-import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Login } from '../interface/login.interface';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from 'src/user/interface';
+import { Request } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -14,8 +15,7 @@ export class AuthController {
     }
 
     @Get('data')
-    @UseGuards(AuthGuard())
-    async findAll(): Promise<User[]> {
+    async findAll(@Req() req: Request): Promise<User[]> {
         return await this.authService.findAll();
     }
 

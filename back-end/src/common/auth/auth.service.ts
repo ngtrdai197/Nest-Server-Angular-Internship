@@ -27,11 +27,21 @@ export class AuthService {
 
     }
 
+    // async getUserProfile(token: string): Promise<User> {
+    //     if (!token) {
+    //         throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    //     }
+    //     console.log(this.context.switchToHttp().getRequest());
+    //     return ;
+    // }
+
     async findAll(): Promise<User[]> {
         return await this.userService.findAll();
     }
 
     async validateUser(validatePayload: JwtPayload): Promise<User> {
+        console.log('auth service', validatePayload);
+        
         const query = { _id: validatePayload.id };
         return await this.userService.findOne(query);
     }

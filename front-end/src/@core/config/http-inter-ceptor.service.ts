@@ -18,7 +18,7 @@ export class HttpInterCeptorService implements HttpInterceptor {
     if (token) {
       req = req.clone({
         setHeaders: {
-          'x-access-token': `${this.jwtService.getToken()}`
+          'Authorization': `Bearer ${this.jwtService.getToken()}`
         }
       });
       return next.handle(req).pipe(
@@ -31,7 +31,6 @@ export class HttpInterCeptorService implements HttpInterceptor {
             // redirect to the login route
             this.router.navigate(['auth']);
             this.jwtService.destroyToken();
-            this.jwtService.setUserProfile(null);
           }
           throw err;
         })

@@ -39,6 +39,7 @@ export class JwtService {
   }
   destroyToken() {
     localStorage.removeItem('x-access-token');
+    this.setUserProfile(null);
   }
   decodeToken(token) {
     const decoded = decode(token);
