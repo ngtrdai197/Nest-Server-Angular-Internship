@@ -15,13 +15,11 @@ export class JwtStrategyService extends PassportStrategy(Strategy) {
     }
 
     async validate(payload: JwtPayload) {
-        console.log('jwt-strategy', payload);
-
-        const userProfile = await this.authService.validateUser(payload);
-        if (!userProfile) {
+        const user = await this.authService.validateUser(payload);
+        if (!user) {
             throw new UnauthorizedException();
         }
-        return 123; //trả về thông tin user để middleware (roles guard) get được thông tin của user
+        return user; //trả về thông tin user để middleware (roles guard) get được thông tin của user
     }
 
 }

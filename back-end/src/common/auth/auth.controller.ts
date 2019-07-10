@@ -1,9 +1,10 @@
-import { Controller, Post, Body, Get, UseGuards, Req } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards, Req, SetMetadata } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Login } from '../interface/login.interface';
 import { AuthGuard } from '@nestjs/passport';
-import { User } from 'src/user/interface';
+import { User, UserRole } from '../../user/interface';
 import { Request } from 'express';
+import { RolesGuard } from '../guard/roles.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -14,9 +15,19 @@ export class AuthController {
         return await this.authService.createToken(user);
     }
 
-    @Get('data')
-    async findAll(@Req() req: Request): Promise<User[]> {
-        return await this.authService.findAll();
+    @Get('userprofile')
+    @SetMetadata('roles', [UserRole.Admin, UserRole.User])
+    @UseGuards(AuthGuard('jwt'), RolesGuard)
+    async getUserProfile(@Req() req: any) {
+        console.log(req);
+        
+        const user = {
+            role: req.user.role || req.profile.role,
+            username: req.user.username || req.profile.username,
+            _id: req.user._id || req._id,
+            fullName: req.user.fullName || req.profile.fullName
+        }
+        return user;
     }
 
 

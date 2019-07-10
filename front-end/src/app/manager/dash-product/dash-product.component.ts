@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/@core/services/product/product.service';
+import { ICategory } from 'src/@core/interface';
 
 @Component({
   selector: 'shop-dash-product',
@@ -56,7 +57,8 @@ export class DashProductComponent implements OnInit {
       description: this.createForm.value.description,
       discount: this.createForm.value.discount,
       title: this.createForm.value.title,
-      productTotal: this.createForm.value.quantity
+      productTotal: this.createForm.value.quantity,
+      productAvailable: this.createForm.value.quantity
     }
     this.productService.createProduct(product).subscribe((response) => {
       if (response) {
@@ -90,8 +92,20 @@ export class DashProductComponent implements OnInit {
       title: [product.title, [Validators.required]],
       quantity: [product.productTotal, [Validators.required]],
     });
-    this.currentProduct = product.id as string;
+    this.currentProduct = product._id as string;
 
+  }
+  getIdToDelete(product: IProduct) {
+    this.selectedIdDetele = product._id as string;
+  }
+
+  delete() {
+    this.productService.deleteProduct(this.selectedIdDetele).subscribe(response => {
+      if (response) {
+        this.refresh();
+        this.toastService.success('Xóa sản phẩm thành công', 'Thông báo');
+      }
+    })
   }
 
   onUpdateProduct() {
@@ -104,7 +118,7 @@ export class DashProductComponent implements OnInit {
       discount: this.editForm.value.discount,
       title: this.editForm.value.title,
       productTotal: this.editForm.value.quantity,
-      id: this.currentProduct
+      _id: this.currentProduct
     }
     this.productService.updateProduct(product).subscribe((response) => {
       if (response) {
@@ -117,8 +131,8 @@ export class DashProductComponent implements OnInit {
   }
 
   private refresh() {
-    this.productService.fetchProductsByCategory(this.categoryId).subscribe(response => {
-      this.dataSource = new MatTableDataSource<IProduct>(response);
+    this.categoryService.onGetById(this.categoryId).subscribe((response: ICategory) => {
+      this.dataSource = new MatTableDataSource<IProduct>(response.products as IProduct[]);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

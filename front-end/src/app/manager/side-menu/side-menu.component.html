@@ -80,13 +80,13 @@
         <h6 class="collapse-header">Quần: </h6>
         <a class="collapse-item" *ngFor="let item of categoryTypes?.pants" routerLinkActive="active-link"
           [routerLinkActiveOptions]="{exact:
-          true}" [routerLink]="['/admin/dash-board/product-management',item.id ]"
+          true}" [routerLink]="['/admin/dash-board/product-management',item._id ]"
           (click)="selectCategory(item)">{{item.categoryName}}</a>
         <div class="collapse-divider"></div>
         <h6 class="collapse-header">Áo:</h6>
         <a class="collapse-item" *ngFor="let item of categoryTypes?.shirts" routerLinkActive="active-link"
           [routerLinkActiveOptions]="{exact:
-          true}" [routerLink]="['/admin/dash-board/product-management',item.id ]"
+          true}" [routerLink]="['/admin/dash-board/product-management',item._id ]"
           (click)="selectCategory(item)">{{item.categoryName}}</a>
       </div>
     </div>

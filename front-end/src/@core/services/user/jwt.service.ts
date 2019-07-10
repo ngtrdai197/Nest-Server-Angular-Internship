@@ -24,7 +24,7 @@ export class JwtService {
   }
 
   getUserProfileByToken() {
-    this.http.get(`${API.HOST}/${API.USER.BASE}/token`).subscribe(response => {
+    this.http.get(`${API.HOST}/api/auth/userprofile`).subscribe(response => {
       return this.setUserProfile(response as IUser);
     }, err => {
       throw err;

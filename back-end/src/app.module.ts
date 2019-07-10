@@ -25,10 +25,13 @@ import { ParserMiddleware } from './common/auth/parser.middleware';
   controllers: [],
   providers: [],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(ParserMiddleware).forRoutes({
-      path: '*', method: RequestMethod.ALL
-    })
-  }
-}
+export class AppModule { }
+// implements NestModule {
+//   configure(consumer: MiddlewareConsumer) {
+//     consumer.apply(ParserMiddleware).forRoutes({
+//       path: '*', method: RequestMethod.ALL
+//     })
+//   }
+// }
+
+

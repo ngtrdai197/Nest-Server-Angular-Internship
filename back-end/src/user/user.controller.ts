@@ -50,8 +50,6 @@ export class UserController {
     @SetMetadata('roles', [UserRole.Admin])
     @UseGuards(AuthGuard('jwt'), RolesGuard)
     async findAll(@Req() req: Request): Promise<User[]> {
-        console.log('user controller', req.user);
-        
         return await this.userService.findAll();
     }
 }

@@ -19,6 +19,8 @@ export class SideMenuComponent implements OnInit {
   ngOnInit() {
     this.categoryService.onCategoryTypes().subscribe(data => {
       this.categoryTypes = data;
+      console.log(data);
+      
     });
   }
   selectCategory(category: ICategory){
