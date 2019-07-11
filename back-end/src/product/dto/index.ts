@@ -2,7 +2,7 @@ import { Customer } from "../interface";
 import { CreateCategoryDto } from "src/category/dto";
 
 export interface CreateProductDto {
-    readonly id?: string;
+    readonly _id?: string;
     readonly productName?: string;
     readonly title?: string;
     readonly description?: string;

@@ -24,7 +24,6 @@ export class AuthService {
             }
         }
         throw new HttpException('Thông tin không hợp lệ', HttpStatus.BAD_REQUEST);
-
     }
 
     async findAll(): Promise<User[]> {

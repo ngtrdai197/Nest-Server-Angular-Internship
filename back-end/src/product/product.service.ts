@@ -26,7 +26,7 @@ export class ProductService implements IProductService {
     }
 
     async update(createProductDto: CreateProductDto): Promise<Product> {
-        return await this.productModel.findByIdAndUpdate(createProductDto.id, createProductDto);
+        return await this.productModel.findByIdAndUpdate(createProductDto._id, createProductDto);
     }
 
     async delete(id: string): Promise<any> {

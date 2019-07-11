@@ -25,7 +25,7 @@ export class UserService {
     return this.http.post<Object>(`${API.HOST}/${API.USER.BASE}`, user);
   }
 
-  onUpdateUser(id: String, user: IUser): Observable<Object> {
-    return this.http.put<Object>(`${API.HOST}/${API.USER.BASE}/${id}`, user);
+  onUpdateUser(user: IUser): Observable<Object> {
+    return this.http.put<Object>(`${API.HOST}/${API.USER.BASE}/${API.USER.UPDATE}`, user);
   }
 }

@@ -28,6 +28,19 @@ export class UserService implements IUserService {
             throw error;
         }
     }
+
+    async update(createUserDto: CreateUserDto): Promise<User> {
+        try {
+            const checkUser = await this.userModel.findById(createUserDto._id);
+            if (checkUser) {
+                return await this.userModel.findByIdAndUpdate(createUserDto._id, createUserDto);
+            }
+            throw new HttpException('Tài khoản không tồn tại. Kiểm tra lại', HttpStatus.BAD_REQUEST);
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async findAll(): Promise<User[]> {
         try {
             return await this.userModel.find();

@@ -15,6 +15,7 @@ import { ICategory } from 'src/@core/interface';
   styleUrls: ['./dash-product.component.scss']
 })
 export class DashProductComponent implements OnInit {
+  isLoading = true;
   categorys: IProduct[] = [];
   isToggle: Boolean = false;
   productChecked: '';
@@ -41,6 +42,7 @@ export class DashProductComponent implements OnInit {
     this.buildForm();
     this.activatedRoute.params.subscribe(params => {
       this.categoryId = params['id'];
+      this.isLoading = true;
       this.refresh();
     });
   }
@@ -135,6 +137,7 @@ export class DashProductComponent implements OnInit {
       this.dataSource = new MatTableDataSource<IProduct>(response.products as IProduct[]);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.isLoading = false;
     });
   }
 

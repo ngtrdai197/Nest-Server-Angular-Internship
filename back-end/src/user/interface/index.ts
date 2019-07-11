@@ -9,6 +9,7 @@ export interface User extends Document {
     readonly phone?: string;
     readonly email?: string;
     readonly role?: string;
+    readonly avatar?: string;
     readonly address?: string;
     readonly orderDetails?: string | Order;
 }

@@ -25,6 +25,9 @@ export const UserSchema = new mongoose.Schema({
     type: String,
     default: 'User',
   },
+  avatar: {
+    type: String
+  },
   address: String,
   orderDetails: [{ type: mongoose.Schema.Types.ObjectId, ref: 'OrderDetails' }],
 });

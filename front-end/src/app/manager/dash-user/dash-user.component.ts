@@ -81,8 +81,7 @@ export class DashUserComponent implements OnInit {
       if (err) {
         this.toastService.error(`${err.error.message}`, 'Thông báo');
       }
-
-    })
+    });
 
   }
 

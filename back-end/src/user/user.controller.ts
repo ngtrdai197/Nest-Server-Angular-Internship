@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, UseGuards, SetMetadata, UseInterceptors, UploadedFiles, UploadedFile, Req, Delete, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards, SetMetadata, UseInterceptors, UploadedFiles, UploadedFile, Req, Delete, Param, Put } from '@nestjs/common';
 import { CreateUserDto } from './dto';
 import { FilesInterceptor, FileInterceptor, FileFieldsInterceptor } from '@nestjs/platform-express';
 import { User } from './interface';
@@ -32,6 +32,13 @@ export class UserController {
     @UseInterceptors(FilesInterceptor('files'))
     async uploadFiles(@UploadedFiles() files) {
         console.log(files);
+    }
+
+    @Put('update')
+    @SetMetadata('roles', [UserRole.Admin, UserRole.User])
+    @UseGuards(AuthGuard('jwt'), RolesGuard)
+    async update(@Body() createUserDto: CreateUserDto): Promise<User> {
+        return await this.userService.update(createUserDto);
     }
 
     @Post()

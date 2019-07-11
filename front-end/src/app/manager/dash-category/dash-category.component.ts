@@ -12,9 +12,10 @@ import { CategoryService } from 'src/@core/services/category/category.service';
   styleUrls: ['./dash-category.component.scss']
 })
 export class DashCategoryComponent implements OnInit {
+  isLoading = true;
   categorys: ICategory[] = [];
   isToggle: Boolean = false;
-  productChecked:'';
+  productChecked: '';
   displayedColumns: string[] = ['no', 'categoryname', 'action'];
   dataSource: MatTableDataSource<ICategory>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -89,6 +90,7 @@ export class DashCategoryComponent implements OnInit {
     this.dataSource = new MatTableDataSource<ICategory>(this.categorys);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.isLoading = false;
   }
 
   applyFilter(filterValue: string) {

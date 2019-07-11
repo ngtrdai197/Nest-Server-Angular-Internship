@@ -1,24 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomepageComponent } from './homepage.component';
+import { ProductDetailsComponent } from './product-details.component';
 import { Routes, RouterModule } from '@angular/router';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { SharedModule } from 'src/@shared/shared.module';
-import { ProductComponent } from './product/product.component';
 
 const routes: Routes = [
-  { path: "", component: HomepageComponent }
-]
-
+  { path: '', component: ProductDetailsComponent }
+];
 
 @NgModule({
-  declarations: [
-    HomepageComponent,
-    ProductComponent
-  ],
+  declarations: [ProductDetailsComponent],
   imports: [
     CommonModule,
+    MDBBootstrapModule,
     SharedModule,
     RouterModule.forChild(routes)
   ]
 })
-export class HomepageModule { }
+export class ProductDetailsModule { }
