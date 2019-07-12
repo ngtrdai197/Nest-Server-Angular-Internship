@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { JwtService } from 'src/@core/services/user/jwt.service';
 import { Router } from '@angular/router';
 import { IUser } from 'src/@core/interface';
@@ -15,11 +15,13 @@ export class HeaderManagerComponent implements OnInit {
 
   user: IUser;
   public editForm: FormGroup;
+  avatarDefault = 'assets/auth/user-default.png';
+  isChangeAvatar = false;
   constructor(private jwtService: JwtService,
     private formBuilder: FormBuilder,
     private router: Router,
     private userService: UserService,
-    private toastService: ToastrService
+    private toastService: ToastrService, private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -38,23 +40,62 @@ export class HeaderManagerComponent implements OnInit {
       email: this.editForm.value.email,
       fullName: this.editForm.value.fullName,
       phone: this.editForm.value.phone,
+      username: this.editForm.value.username,
       _id: this.user._id
     };
-    this.userService.onUpdateUser(user).subscribe(response => {
+    const formData = new FormData();
+
+    formData.append('address', user.address as string);
+    formData.append('email', user.email as string);
+    formData.append('fullName', user.fullName as string);
+    formData.append('phone', user.phone as string);
+    formData.append('_id', user._id as string);
+    formData.append('username', user.username as string);
+    if(this.isChangeAvatar){
+      if (this.editForm.value.avatar) {
+        formData.append('avatar', this.editForm.value.avatar);
+      }
+    }
+
+    this.userService.onUpdateUser(formData).subscribe(response => {
       if (response) {
         this.jwtService.getUserProfileByToken();
         this.toastService.success('Cập nhật thành công', 'Thông báo');
+        this.isChangeAvatar = false;
       }
     });
   }
 
+  onFileChange(event) {
+    if (event.target.files.length > 0) {
+      this.isChangeAvatar = true;
+      let reader = new FileReader();
+      const avatar = event.target.files[0];
+      reader.readAsDataURL(avatar);
+
+      reader.onload = () => {
+        this.avatarDefault = reader.result as string;
+        this.editForm.get('avatar').setValue(avatar);
+        const output = <HTMLImageElement>document.getElementById('preview');
+        output.src = reader.result as string;
+
+        console.log(this.editForm.value);
+      };
+      this.cd.markForCheck();
+    }
+  }
+
   pushProfile() {
+    if (!this.user.avatar) {
+      this.user.avatar = this.avatarDefault;
+    }
     this.editForm = this.formBuilder.group({
       username: [this.user.username, [Validators.required]],
       fullName: [this.user.fullName, [Validators.required]],
       email: [this.user.email, [Validators.required]],
       address: [this.user.address, [Validators.required]],
-      phone: [this.user.phone, [Validators.required]]
+      phone: [this.user.phone, [Validators.required]],
+      avatar: [this.user.avatar]
     });
   }
 
@@ -70,7 +111,8 @@ export class HeaderManagerComponent implements OnInit {
       fullName: ['', [Validators.required]],
       email: ['', [Validators.required]],
       address: ['', [Validators.required]],
-      phone: ['', [Validators.required]]
+      phone: ['', [Validators.required]],
+      avatar: ['']
     });
   }
 }

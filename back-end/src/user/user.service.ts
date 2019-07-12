@@ -29,7 +29,7 @@ export class UserService implements IUserService {
         }
     }
 
-    async update(createUserDto: CreateUserDto): Promise<User> {
+    async update(createUserDto: CreateUserDto, fileName?: string): Promise<User> {
         try {
             const checkUser = await this.userModel.findById(createUserDto._id);
             if (checkUser) {

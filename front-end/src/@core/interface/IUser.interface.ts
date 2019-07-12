@@ -9,4 +9,5 @@ export interface IUser {
   email?: String,
   address?: String;
   role?: IRole | String;
+  avatar?: String;
 }

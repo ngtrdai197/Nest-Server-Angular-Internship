@@ -163,7 +163,12 @@
       <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
         <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user?.fullName}}</span>
-        <img class="img-profile rounded-circle" src="">
+        <div class="avatar" *ngIf="user?.avatar">
+          <img class="preview" [src]="user.avatar" alt=""style="width: 50px; height: 50px; border-radius: 50%;">
+        </div>
+        <div class="avatar" *ngIf="!user?.avatar">
+          <img class="preview" [src]="avatarDefault" alt=""style="width: 50px; height: 50px; border-radius: 50%;">
+        </div>
       </a>
       <!-- Dropdown - User Information -->
       <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -202,6 +207,13 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <form [formGroup]="editForm">
+        <div class="avatar" *ngIf="user?.avatar">
+          <img id="preview" [src]="user.avatar" alt="" (click)="uploadFile.click()">
+        </div>
+        <div class="avatar" *ngIf="!user?.avatar">
+          <img id="preview" [src]="avatarDefault" alt="" (click)="uploadFile.click()">
+        </div>
+        <input type="file" #uploadFile style="display: none" (change)="onFileChange($event)">
         <label for="">User name</label>
         <input type="text" class="form-control" autocomplete="" formControlName="username" disabled>
         <label for="">Full name</label>

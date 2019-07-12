@@ -8,7 +8,7 @@ import { OrderModule } from './order/order.module';
 import { constants } from './constants';
 import { CommonModule } from './common/common.module';
 import { MulterModule } from '@nestjs/platform-express';
-import { ParserMiddleware } from './common/auth/parser.middleware';
+import { ParserMiddleware } from './middleware';
 @Module({
   imports: [
     UserModule,
@@ -25,13 +25,13 @@ import { ParserMiddleware } from './common/auth/parser.middleware';
   controllers: [],
   providers: [],
 })
-export class AppModule { }
-// implements NestModule {
-//   configure(consumer: MiddlewareConsumer) {
-//     consumer.apply(ParserMiddleware).forRoutes({
-//       path: '*', method: RequestMethod.ALL
-//     })
-//   }
-// }
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(ParserMiddleware).forRoutes({
+      path: '*', method: RequestMethod.ALL
+    })
+  }
+}
+
 
 

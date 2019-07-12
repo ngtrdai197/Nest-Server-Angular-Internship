@@ -57,7 +57,7 @@ export class DialogDashUserComponent implements OnInit {
       role: this.role,
       _id: this.data.user._id
     }
-    this.userService.onUpdateUser(user).subscribe(response => {
+    this.userService.onUpdateUser(user as FormData).subscribe(response => {
       if (response) {
         this.toastService.success(`Cập nhật thông tin thành công`, 'Thông báo');
         this.dialogRef.close();

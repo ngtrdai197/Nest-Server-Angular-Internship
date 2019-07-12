@@ -9,35 +9,43 @@ import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { UserRole } from './interface/index';
 import { Request } from 'express';
+import * as fs from 'fs';
 
 @Controller('user')
 export class UserController {
     constructor(private readonly userService: UserService) { }
 
     @Post('upload')
-    @UseInterceptors(FileInterceptor('media', {
-        storage: diskStorage({
-            destination: './src/public/avatars',
-            filename: (req, file, cb) => {
-                const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('')
-                return cb(null, `${randomName}${extname(file.originalname)}`)
-            }
-        })
-    }))
-    uploadFile(@UploadedFile() file) {
-        console.log(file.path);
+    @UseInterceptors(FilesInterceptor('files'))
+    uploadFile(@UploadedFiles() files) {
+        files.map(async file => {
+            await fs.watchFile(__dirname + '/public/avatars', file);
+        });
     }
 
     @Post('save')
     @UseInterceptors(FilesInterceptor('files'))
     async uploadFiles(@UploadedFiles() files) {
         console.log(files);
+
     }
 
     @Put('update')
     @SetMetadata('roles', [UserRole.Admin, UserRole.User])
     @UseGuards(AuthGuard('jwt'), RolesGuard)
-    async update(@Body() createUserDto: CreateUserDto): Promise<User> {
+    @UseInterceptors(FileInterceptor('avatar', {
+        storage: diskStorage({
+            destination: __dirname + '../../../public/avatars',
+            filename: (req, file, cb) => {
+                const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('')
+                return cb(null, `${randomName}${extname(file.originalname)}`)
+            }
+        })
+    }))
+    async update(@Body() createUserDto: CreateUserDto, @UploadedFile() file): Promise<User> {
+        if (file) {
+            createUserDto.avatar = `avatars/${file.filename}`;
+        }
         return await this.userService.update(createUserDto);
     }
 
@@ -54,9 +62,9 @@ export class UserController {
     }
 
     @Get()
-    @SetMetadata('roles', [UserRole.Admin])
+    @SetMetadata('roles', [UserRole.User])
     @UseGuards(AuthGuard('jwt'), RolesGuard)
-    async findAll(@Req() req: Request): Promise<User[]> {
+    async findAll(): Promise<User[]> {
         return await this.userService.findAll();
     }
 }

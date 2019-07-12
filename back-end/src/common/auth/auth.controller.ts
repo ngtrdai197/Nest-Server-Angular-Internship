@@ -19,16 +19,8 @@ export class AuthController {
     @SetMetadata('roles', [UserRole.Admin, UserRole.User])
     @UseGuards(AuthGuard('jwt'), RolesGuard)
     async getUserProfile(@Req() req: any) {
-        const user = {
-            role: req.profile.role,
-            username: req.profile.username,
-            _id: req.profile._id,
-            fullName: req.profile.fullName,
-            email: req.profile.email,
-            address: req.profile.address,
-            phone: req.profile.phone
-        }
-        return user;
+        
+        return req. user;
     }
 
 
