@@ -13,6 +13,11 @@ export class UserRepository implements IUserRepository {
     return await userModel.find({}).select('-__v');
   };
 
+  getUserProfole = async (query: any): Promise<IUser> => {
+    const profile = await userModel.findOne(query).select('-password');
+    return profile as IUser;
+  }
+
   create = async (user: IUser): Promise<IUser> => {
     return await userModel.create(user);
   };
@@ -20,7 +25,7 @@ export class UserRepository implements IUserRepository {
   update = async (user: IUser): Promise<IUser> => {
     await userModel.findByIdAndUpdate(user.id, user);
     const updated = await userModel.findById(user.id).select('-__v');
-    
+
     return updated as IUser;
   };
 

@@ -10,8 +10,8 @@ export const parser = (roles?: String[]) => {
         if (error) {
           return res.status(401).send({ statusCode: 401, message: 'Token invalid' });
         } else {
-          if ((roles as String[]).indexOf(constants.ROLES.USER) > -1 || constants.ADMIN_USER.indexOf(decoded.username) > -1) {
-            req.user = decoded.id
+          if ((roles as String[]).indexOf(constants.ROLES.USER) > -1 || decoded.role === constants.ROLES.ADMIN) {
+            req.user = decoded;
             next();
             return;
           } else {

@@ -2,8 +2,10 @@ import { inject } from "inversify";
 import { TYPES } from "../common";
 import { ICategoryRepository } from "../IRepositories";
 import { httpGet, controller, httpPost, httpPut, httpDelete } from "inversify-express-utils";
-import { ICategory } from "../entities";
+import { ICategory, IProduct } from "../entities";
 import { Request } from "express";
+import * as httpErrors from 'http-errors';
+
 
 @controller("/category")
 export class Category {
@@ -42,6 +44,10 @@ export class Category {
     public async delete(req: Request): Promise<any> {
         try {
             const { id } = req.params;
+            const category = await this.categoryRespository.findOne({ _id: id });
+            if ((category.products as IProduct[]).length > 0) {
+                throw httpErrors(400, 'Danh mục hiện đang chứa sản phẩm. Không thể xóa');
+            }
             return await this.categoryRespository.delete(id);
         } catch (error) {
             throw error;

@@ -7,5 +7,6 @@ export abstract class ICategoryRepository {
     abstract findAll(): Promise<ICategory[]>;
     abstract create(category: ICategory): Promise<ICategory>;
     abstract update(category: ICategory): Promise<ICategory>;
+    abstract updateMapping(query: any, id: string): Promise<ICategory>;
     abstract delete(id: string): Promise<any>;
 }

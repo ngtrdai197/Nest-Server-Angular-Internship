@@ -1,11 +1,8 @@
 import { Container } from "inversify";
 import { makeLoggerMiddleware } from "inversify-logger-middleware";
 import { IUserRepository, ICategoryRepository, IProductRepository, IOrderDetailsRepository, IOrderRepository } from "./IRepositories";
-import { UserRepository, CategoryRepository } from "./repositories";
+import { UserRepository, CategoryRepository, ProductRepository, OrderDetailsRepository, OrderRepository } from "./repositories";
 import { TYPES } from "./common";
-import { ProductRepository } from "./repositories/product.repository";
-import { OrderRepository } from "./repositories/order.repository";
-import { OrderDetailsRepository } from "./repositories/order-details.repository";
 
 export const createContainer = async (): Promise<Container> => {
   // load everything needed to the Container

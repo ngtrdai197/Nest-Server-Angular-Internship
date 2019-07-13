@@ -1,24 +1,35 @@
-import { controller, httpGet, httpPost, httpDelete, httpPut } from "inversify-express-utils";
+import { controller, httpGet, httpPost, httpDelete, httpPut, requestParam } from "inversify-express-utils";
 import { IProduct } from "../entities";
 import { inject } from "inversify";
 import { TYPES } from "../common";
-import { IProductRepository } from "../IRepositories";
+import { IProductRepository, ICategoryRepository } from "../IRepositories";
 import { Request } from "express";
 
 @controller("/product")
 export class Product {
-    constructor(@inject(TYPES.IProductRepository) private productRepository: IProductRepository) { }
+    constructor(
+        @inject(TYPES.IProductRepository) private productRepo: IProductRepository,
+        @inject(TYPES.ICategoryRepository) private categoryRepo: ICategoryRepository
+    ) { }
 
     @httpGet('/')
     public async findAll(): Promise<IProduct[]> {
-        return await this.productRepository.findAll({});
+        try {
+            return await this.productRepo.findAll({});
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    @httpGet(':/id')
+    public async findOne(@requestParam('id') id: string) {
+        return await this.productRepo.findOne({ _id: id });
     }
 
     @httpGet("/category/:id")
-    public async findByCategory(req: Request): Promise<IProduct[]> {
+    public async findByCategory(@requestParam('id') id: string): Promise<IProduct[]> {
         try {
-            const { id } = req.params;
-            return await this.productRepository.findAll({ category: id });
+            return await this.productRepo.findAll({ category: id });
         } catch (error) {
             throw error;
         }
@@ -28,7 +39,10 @@ export class Product {
     public async create(req: Request): Promise<IProduct> {
         try {
             const { body } = req;
-            return await this.productRepository.create(body);
+            const product = await this.productRepo.create(body);
+            const query = { $push: { products: product } };
+            await this.categoryRepo.updateMapping(query, product.category as string);
+            return product;
         } catch (error) {
             throw error;
         }
@@ -38,7 +52,7 @@ export class Product {
     public async update(req: Request): Promise<IProduct> {
         try {
             const { body } = req;
-            return await this.productRepository.update(body);
+            return await this.productRepo.update(body);
         } catch (error) {
             throw error;
         }
@@ -46,7 +60,16 @@ export class Product {
 
     @httpDelete('/:id')
     public async delete(req: Request): Promise<any> {
-        const { id } = req.params;
-        return await this.productRepository.delete(id);
+        try {
+            const { id } = req.params;
+            const product = await this.productRepo.findOne({ _id: id });
+            if (product) {
+                const query = { $pull: { products: { $in: id } } };
+                await this.categoryRepo.updateMapping(query, product.category as string);
+            }
+            return await this.productRepo.delete(id);
+        } catch (error) {
+            throw error;
+        }
     }
 }

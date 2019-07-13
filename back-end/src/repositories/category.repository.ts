@@ -4,6 +4,7 @@ import { ICategory, categoryModel } from "../entities";
 
 @injectable()
 export class CategoryRepository implements ICategoryRepository {
+  
   findOne = async (query: any): Promise<ICategory> => {
     const category = await categoryModel.findOne(query);
     return category as ICategory;
@@ -13,6 +14,10 @@ export class CategoryRepository implements ICategoryRepository {
     return await categoryModel.find({});
   };
 
+  updateMapping = async (query: any, id: string): Promise<ICategory> => {
+    return await categoryModel.update({ _id: id }, query);
+  }
+
   create = async (category: ICategory): Promise<ICategory> => {
     return await categoryModel.create(category);
   };
@@ -20,7 +25,6 @@ export class CategoryRepository implements ICategoryRepository {
   update = async (category: ICategory): Promise<ICategory> => {
     await categoryModel.findByIdAndUpdate(category.id, category);
     const updated = await categoryModel.findById(category.id);
-    
     return updated as ICategory;
   };
 

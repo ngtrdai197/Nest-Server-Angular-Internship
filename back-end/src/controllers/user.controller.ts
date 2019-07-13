@@ -87,13 +87,14 @@ export class UserController {
     }
   }
 
-  @httpGet('/email/otp')
-  public async sendMail(): Promise<any> {
+  @httpGet('/email/otp', parser([constants.ROLES.ADMIN, constants.ROLES.USER]))
+  public async sendMail(req: any): Promise<any> {
     try {
+      const { user } = req;
       const receiver = 'ngtrdai290197@gmail.com';
       const content = `
                 <div style="color:black;">
-                <h3 >Hi Nguyen Dai,</h3>
+                <h3 >Hi ${user.username} </h3>
                 <p>Your recently requested to reset your password for your Shop 3s account.Click the button below to reset it.</p>
                 <p><a href="www.facebook.com/ngtrdai197" style="background-color:#242234;color:#fff; border:none; 
                 padding:12px 20px;font-size:15px;cursor:pointer;display: inline-block;text-decoration:none;">Reset password</a></p>
