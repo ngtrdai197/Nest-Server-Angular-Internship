@@ -24,7 +24,7 @@ export class JwtService {
   }
 
   getUserProfileByToken() {
-    this.http.get(`${API.HOST}/api/auth/userprofile`).subscribe(response => {
+    this.http.get(`${API.HOST}/api/auth/profile`).subscribe(response => {
       if(response['avatar']){
         response['avatar'] = `${API.HOST}/${response['avatar']}`;
       }

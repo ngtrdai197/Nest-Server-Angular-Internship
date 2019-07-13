@@ -1,7 +1,7 @@
 import { IRole } from './IRole.interface';
 
 export interface IUser {
-  _id?: String;
+  id?: String;
   username?: String;
   password?: String;
   fullName?: String;

@@ -41,7 +41,7 @@ export class HeaderManagerComponent implements OnInit {
       fullName: this.editForm.value.fullName,
       phone: this.editForm.value.phone,
       username: this.editForm.value.username,
-      _id: this.user._id
+      id: this.user.id
     };
     const formData = new FormData();
 
@@ -49,9 +49,9 @@ export class HeaderManagerComponent implements OnInit {
     formData.append('email', user.email as string);
     formData.append('fullName', user.fullName as string);
     formData.append('phone', user.phone as string);
-    formData.append('_id', user._id as string);
+    formData.append('id', user.id as string);
     formData.append('username', user.username as string);
-    if(this.isChangeAvatar){
+    if (this.isChangeAvatar) {
       if (this.editForm.value.avatar) {
         formData.append('avatar', this.editForm.value.avatar);
       }

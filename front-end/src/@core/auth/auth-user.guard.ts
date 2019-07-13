@@ -18,7 +18,7 @@ export class AuthUserGuard implements CanActivate {
       return false;
     } else {
       const decode = this.jwtService.decodeToken(this.jwtService.getToken());
-      console.log(decode);
+      // console.log(decode);
 
       if (decode.role === "User") {
         return true;
