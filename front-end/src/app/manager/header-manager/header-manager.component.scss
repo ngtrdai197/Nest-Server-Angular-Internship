@@ -2,6 +2,20 @@
 :host{
   display: block;
   height: 13vh;
+  
+}
+#updateProfile{
+  form{
+    padding: 20px 20px;
+    .avatar{
+      text-align: center;
+      img{
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+      }
+    }
+  }
 }
 // Topbar
 .topbar {
@@ -111,9 +125,6 @@
     }
   }
 }
-
-.topbar.navbar-dark {}
-
 .topbar.navbar-light {
   .navbar-nav {
     .nav-item {

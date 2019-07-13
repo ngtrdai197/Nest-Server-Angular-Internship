@@ -1,10 +1,11 @@
 :host {
   .item-wrapping {
-    background: #fff;
+    background: #d8d2d270;
     margin-bottom: 20px;
     .wrapping-img {
       position: relative;
       cursor: pointer;
+      padding: 2px;
       &:hover > .sub-cart {
         display: block;
         transition: all ease-in-out 1s;

@@ -24,7 +24,10 @@ export class JwtService {
   }
 
   getUserProfileByToken() {
-    this.http.get(`${API.HOST}/${API.USER.BASE}/token`).subscribe(response => {
+    this.http.get(`${API.HOST}/api/auth/userprofile`).subscribe(response => {
+      if(response['avatar']){
+        response['avatar'] = `${API.HOST}/${response['avatar']}`;
+      }
       return this.setUserProfile(response as IUser);
     }, err => {
       throw err;
@@ -39,6 +42,7 @@ export class JwtService {
   }
   destroyToken() {
     localStorage.removeItem('x-access-token');
+    this.setUserProfile(null);
   }
   decodeToken(token) {
     const decoded = decode(token);

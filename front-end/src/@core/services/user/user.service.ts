@@ -10,7 +10,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   onSignIn(user: any): Observable<any> {
-    return this.http.post(`${API.HOST}/api/user/auth/login`, user);
+    return this.http.post(`${API.HOST}/api/auth/login`, user);
   }
 
   onFetchUsers(): Observable<IUser[]> {
@@ -25,7 +25,7 @@ export class UserService {
     return this.http.post<Object>(`${API.HOST}/${API.USER.BASE}`, user);
   }
 
-  onUpdateUser(id: String, user: IUser): Observable<Object> {
-    return this.http.put<Object>(`${API.HOST}/${API.USER.BASE}/${id}`, user);
+  onUpdateUser(formData: FormData): Observable<Object> {
+    return this.http.put<Object>(`${API.HOST}/${API.USER.BASE}/${API.USER.UPDATE}`, formData);
   }
 }

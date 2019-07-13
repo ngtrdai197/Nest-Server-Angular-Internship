@@ -1,7 +1,7 @@
 import { IUser } from './index';
 
 export interface IProduct {
-  id?: String;
+  _id?: String;
   productName: String;
   title: String;
   currentPrice: Number;

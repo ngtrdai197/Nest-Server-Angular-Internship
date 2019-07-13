@@ -7,6 +7,7 @@ export const API = {
   },
   USER: {
     BASE: "api/user",
+    UPDATE: 'update'
   },
   CATEGORY: {
     BASE: "api/category",

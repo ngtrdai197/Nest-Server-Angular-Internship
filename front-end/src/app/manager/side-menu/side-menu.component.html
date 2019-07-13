@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
   [ngClass]="{'toggled': !toggleSideBar, 'hide':toggleSideBar}">
   <!-- Sidebar - Brand -->
-  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" routerLink="/home">
     <div class="sidebar-brand-icon rotate-n-15">
       <i class="fas fa-laugh-wink"></i>
     </div>
@@ -80,13 +80,13 @@
         <h6 class="collapse-header">Quần: </h6>
         <a class="collapse-item" *ngFor="let item of categoryTypes?.pants" routerLinkActive="active-link"
           [routerLinkActiveOptions]="{exact:
-          true}" [routerLink]="['/admin/dash-board/product-management',item.id ]"
+          true}" [routerLink]="['/admin/dash-board/product-management',item._id ]"
           (click)="selectCategory(item)">{{item.categoryName}}</a>
         <div class="collapse-divider"></div>
         <h6 class="collapse-header">Áo:</h6>
         <a class="collapse-item" *ngFor="let item of categoryTypes?.shirts" routerLinkActive="active-link"
           [routerLinkActiveOptions]="{exact:
-          true}" [routerLink]="['/admin/dash-board/product-management',item.id ]"
+          true}" [routerLink]="['/admin/dash-board/product-management',item._id ]"
           (click)="selectCategory(item)">{{item.categoryName}}</a>
       </div>
     </div>
@@ -94,19 +94,25 @@
 
   <!-- Nav Item - Charts -->
   <li class="nav-item">
-    <a class="nav-link" routerLink="/admin/dash-board/user-management">
+    <a class="nav-link" routerLink="/admin/dash-board/user-management" routerLinkActive="active-link"
+    [routerLinkActiveOptions]="{exact:
+  true}">
       <i class="fas fa-users"></i>
       <span>Users</span></a>
   </li>
 
   <!-- Nav Item - Tables -->
   <li class="nav-item">
-    <a class="nav-link" routerLink="/admin/dash-board/category-management">
+    <a class="nav-link" routerLink="/admin/dash-board/category-management" routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{exact:
+    true}">
       <i class="fas fa-fw fa-table"></i>
       <span>Danh mục sản phẩm</span></a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" routerLink="/admin/dash-board/order-management">
+    <a class="nav-link" routerLink="/admin/dash-board/order-management" routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{exact:
+    true}">
       <i class="fas fa-fw fa-table"></i>
       <span>Quản lý đơn hàng</span></a>
   </li>

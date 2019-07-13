@@ -22,4 +22,8 @@ export class ProductService {
     updateProduct(product: IProduct): Observable<IProduct> {
         return this.http.put<IProduct>(`${API.HOST}/${API.PRODUCT.BASE}`, product);
     }
+
+    deleteProduct(id: string): Observable<any> {
+        return this.http.delete<any>(`${API.HOST}/${API.PRODUCT.BASE}/${id}`);
+    }
 }

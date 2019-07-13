@@ -22,9 +22,15 @@ export class CategoryService {
   onAddCategory(category: ICategory): Observable<ICategory> {
     return this.http.post<ICategory>(`${API.HOST}/${API.CATEGORY.BASE}`, category);
   }
+
+  onGetById(id: string): Observable<ICategory> {
+    return this.http.get<ICategory>(`${API.HOST}/${API.CATEGORY.BASE}/find/${id}`);
+  }
+
   onUpdateCategory(category: ICategory): Observable<ICategory> {
     return this.http.put<ICategory>(`${API.HOST}/${API.CATEGORY.BASE}`, category);
   }
+
   onCategoryTypes(): Observable<any> {
     return this.http.get<any>(`${API.HOST}/${API.CATEGORY.BASE}/${API.CATEGORY.TYPE}`);
   }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomepageComponent } from './homepage/homepage.component';
+import { HomepageComponent } from './pages/homepage/homepage.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from 'src/@core/auth/auth.guard';
 import { AuthUserGuard } from 'src/@core/auth/auth-user.guard';
@@ -11,9 +11,10 @@ import { AuthUserGuard } from 'src/@core/auth/auth-user.guard';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
-  { path: 'home', loadChildren: () => import('./homepage/homepage.module').then(m => m.HomepageModule) },
+  { path: 'home', loadChildren: () => import('./pages/homepage/homepage.module').then(m => m.HomepageModule) },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   { path: 'admin', loadChildren: () => import('./manager/manager.module').then(m => m.ManagerModule), canActivate: [AuthGuard] },
+  { path: 'product/:id', loadChildren: () => import('./pages/product-details/product-details.module').then(m => m.ProductDetailsModule) },
   // {
   //   path: 'home', component: LayoutComponent, children: [
   //     { path: '', component: HomepageComponent }

@@ -20,7 +20,8 @@
   .header-links li a {
     color: #FFF;
   }
-  .dropdown-menu .dropdown-item{
+
+  .dropdown-menu .dropdown-item {
     color: #242c5d !important;
     font-size: 12px;
   }
@@ -220,7 +221,18 @@
 
   // end header
 
-  .nav-bar-menu{
+  .nav-bar-menu {
     border-bottom: 2px solid lightgray;
+    background: #3f729a;
+
+    .nav-item {
+      a {
+        color: #fff !important;
+      }
+
+      .dropdown-item {
+        color: #000 !important;
+      }
+    }
   }
 }
